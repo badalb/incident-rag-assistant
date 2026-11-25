@@ -1,0 +1,156 @@
+{
+  "source_id": "CATALOG-SERVICES-001",
+  "services": [
+    {
+      "id": "SVC-PAY",
+      "name": "Payment Service",
+      "description": "Authorizes and captures customer payments.",
+      "team_id": "TEAM-PAY",
+      "depends_on": [
+        "SVC-CUS",
+        "SVC-FRD"
+      ],
+      "uses_databases": [],
+      "produces_topics": [
+        "TOPIC-PAYMENT-EVENTS"
+      ],
+      "consumes_topics": []
+    },
+    {
+      "id": "SVC-ORD",
+      "name": "Order Service",
+      "description": "Creates and manages customer orders.",
+      "team_id": "TEAM-COM",
+      "depends_on": [
+        "SVC-PAY",
+        "SVC-INV"
+      ],
+      "uses_databases": [],
+      "produces_topics": [
+        "TOPIC-ORDER-EVENTS"
+      ],
+      "consumes_topics": []
+    },
+    {
+      "id": "SVC-CUS",
+      "name": "Customer Service",
+      "description": "Maintains customer profiles and payment preferences.",
+      "team_id": "TEAM-CUS",
+      "depends_on": [],
+      "uses_databases": [
+        "DB-CUSTOMER"
+      ],
+      "produces_topics": [
+        "TOPIC-CUSTOMER-EVENTS"
+      ],
+      "consumes_topics": []
+    },
+    {
+      "id": "SVC-FRD",
+      "name": "Fraud Service",
+      "description": "Evaluates payment risk and fraud signals.",
+      "team_id": "TEAM-RSK",
+      "depends_on": [],
+      "uses_databases": [
+        "DB-FRAUD"
+      ],
+      "produces_topics": [
+        "TOPIC-FRAUD-DECISIONS"
+      ],
+      "consumes_topics": [
+        "TOPIC-CUSTOMER-EVENTS"
+      ]
+    },
+    {
+      "id": "SVC-NOT",
+      "name": "Notification Service",
+      "description": "Sends payment and order notifications.",
+      "team_id": "TEAM-COM",
+      "depends_on": [],
+      "uses_databases": [],
+      "produces_topics": [],
+      "consumes_topics": [
+        "TOPIC-PAYMENT-EVENTS",
+        "TOPIC-ORDER-EVENTS"
+      ]
+    },
+    {
+      "id": "SVC-SET",
+      "name": "Settlement Service",
+      "description": "Builds settlement batches for payment transactions.",
+      "team_id": "TEAM-PAY",
+      "depends_on": [
+        "SVC-PAY"
+      ],
+      "uses_databases": [
+        "DB-SETTLEMENT"
+      ],
+      "produces_topics": [
+        "TOPIC-SETTLEMENT-EVENTS"
+      ],
+      "consumes_topics": [
+        "TOPIC-PAYMENT-EVENTS"
+      ]
+    },
+    {
+      "id": "SVC-REP",
+      "name": "Reporting Service",
+      "description": "Builds operational and financial reports.",
+      "team_id": "TEAM-DAT",
+      "depends_on": [
+        "SVC-SET"
+      ],
+      "uses_databases": [
+        "DB-SETTLEMENT"
+      ],
+      "produces_topics": [],
+      "consumes_topics": [
+        "TOPIC-SETTLEMENT-EVENTS"
+      ]
+    },
+    {
+      "id": "SVC-AUT",
+      "name": "Authentication Service",
+      "description": "Authenticates users and issues access tokens.",
+      "team_id": "TEAM-CUS",
+      "depends_on": [
+        "SVC-CUS"
+      ],
+      "uses_databases": [],
+      "produces_topics": [],
+      "consumes_topics": []
+    },
+    {
+      "id": "SVC-INV",
+      "name": "Inventory Service",
+      "description": "Reserves and releases inventory for orders.",
+      "team_id": "TEAM-COM",
+      "depends_on": [],
+      "uses_databases": [
+        "DB-CUSTOMER"
+      ],
+      "produces_topics": [
+        "TOPIC-INVENTORY-EVENTS"
+      ],
+      "consumes_topics": [
+        "TOPIC-ORDER-EVENTS"
+      ]
+    },
+    {
+      "id": "SVC-AUD",
+      "name": "Audit Service",
+      "description": "Consumes business events and stores audit records.",
+      "team_id": "TEAM-DAT",
+      "depends_on": [],
+      "uses_databases": [
+        "DB-SETTLEMENT"
+      ],
+      "produces_topics": [],
+      "consumes_topics": [
+        "TOPIC-PAYMENT-EVENTS",
+        "TOPIC-ORDER-EVENTS",
+        "TOPIC-SETTLEMENT-EVENTS"
+      ]
+    }
+  ]
+}

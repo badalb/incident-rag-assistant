@@ -1,0 +1,89 @@
+{
+  "source_id": "ERROR-CATALOG-001",
+  "errors": [
+    {
+      "id": "ERR-POOL",
+      "name": "Connection Pool Exhaustion",
+      "error_type": "DATABASE",
+      "signature": "connection pool exhausted|unable to acquire connection",
+      "description": "Application cannot acquire a database connection within the configured wait period."
+    },
+    {
+      "id": "ERR-TIMEOUT",
+      "name": "Request Timeout",
+      "error_type": "APPLICATION",
+      "signature": "request timed out|upstream timeout",
+      "description": "A request exceeded its configured response deadline."
+    },
+    {
+      "id": "ERR-KAFKA-LAG",
+      "name": "Kafka Consumer Lag",
+      "error_type": "MESSAGING",
+      "signature": "consumer lag above threshold",
+      "description": "A consumer group is processing events slower than producers publish them."
+    },
+    {
+      "id": "ERR-DEADLOCK",
+      "name": "Database Deadlock",
+      "error_type": "DATABASE",
+      "signature": "deadlock detected",
+      "description": "Concurrent transactions hold locks in conflicting order."
+    },
+    {
+      "id": "ERR-DEPENDENCY",
+      "name": "Dependency Failure",
+      "error_type": "APPLICATION",
+      "signature": "dependency unavailable|dependency timeout",
+      "description": "A service cannot complete an operation because a downstream dependency is unhealthy."
+    },
+    {
+      "id": "ERR-DB-LATENCY",
+      "name": "Database Latency",
+      "error_type": "DATABASE",
+      "signature": "slow query|database latency",
+      "description": "Database operations take longer than expected."
+    },
+    {
+      "id": "ERR-CONSUMER-LAG",
+      "name": "Consumer Processing Lag",
+      "error_type": "MESSAGING",
+      "signature": "processing backlog",
+      "description": "A consumer pipeline is delayed."
+    },
+    {
+      "id": "ERR-RETRY-STORM",
+      "name": "Retry Amplification",
+      "error_type": "APPLICATION",
+      "signature": "retry count elevated|retry queue growing",
+      "description": "Retries increase load or backlog during a failure."
+    },
+    {
+      "id": "ERR-CACHE",
+      "name": "Cache Inconsistency",
+      "error_type": "CACHE",
+      "signature": "stale cache value",
+      "description": "Cached data does not reflect the latest source-of-truth state."
+    },
+    {
+      "id": "ERR-SCHEMA",
+      "name": "Event Schema Incompatibility",
+      "error_type": "MESSAGING",
+      "signature": "schema validation failed",
+      "description": "Producer and consumer disagree on an event schema."
+    },
+    {
+      "id": "ERR-DUPLICATE",
+      "name": "Duplicate Event Processing",
+      "error_type": "MESSAGING",
+      "signature": "duplicate event id",
+      "description": "An event is processed more than once without effective idempotency."
+    },
+    {
+      "id": "ERR-AUTH",
+      "name": "Authentication Validation Error",
+      "error_type": "SECURITY",
+      "signature": "token validation failed",
+      "description": "Authentication or token validation fails."
+    }
+  ]
+}

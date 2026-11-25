@@ -1,0 +1,133 @@
+services:
+
+  # Neo4j Knowledge Graph Database
+  neo4j:
+    image: neo4j:5.26
+    container_name: rca-neo4j
+    restart: unless-stopped
+
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+
+    volumes:
+      - ${NEO4J_DATA_PATH:-./neo4j-data}:/data
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - cypher-shell -u neo4j -p "$${NEO4J_AUTH#*/}" "RETURN 1"
+      interval: 10s
+      timeout: 10s
+      retries: 15
+      start_period: 30s
+
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+
+    container_name: rca-backend
+    restart: unless-stopped
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - .env
+
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+
+    depends_on:
+      neo4j:
+        condition: service_healthy
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+
+  # Streamlit Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+
+    container_name: rca-frontend
+    restart: unless-stopped
+
+    ports:
+      - "8501:8501"
+
+    environment:
+      RCA_API_URL: http://backend:8000
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+
+  # One-time Data Ingestion
+  ingestion:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+
+    container_name: rca-ingestion
+
+    env_file:
+      - .env
+
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+
+    depends_on:
+      neo4j:
+        condition: service_healthy
+
+    profiles:
+      - setup
+
+    restart: "no"
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+
+        echo "Initializing database schema..."
+        python -m app.scripts.init_db
+
+        echo "Creating vector index..."
+        python -m app.scripts.init_vector_index
+
+        echo "Ingesting structured data..."
+        python -m app.scripts.ingest_structured_data
+
+        echo "Ingesting relationships..."
+        python -m app.scripts.ingest_relationships
+
+        echo "Ingesting documents..."
+        python -m app.scripts.ingest_documents
+
+        echo "Generating embeddings..."
+        python -m app.scripts.ingest_embeddings
+
+        echo "Linking graph entities..."
+        python -m app.scripts.link_entities
+
+        echo "Database initialization completed."

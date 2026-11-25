@@ -1,0 +1,687 @@
+{
+  "service_dependencies": [
+    {
+      "from": "SVC-PAY",
+      "to": "SVC-CUS",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "SVC-PAY",
+      "to": "SVC-FRD",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "SVC-ORD",
+      "to": "SVC-PAY",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "SVC-ORD",
+      "to": "SVC-INV",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "SVC-SET",
+      "to": "SVC-PAY",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "SVC-REP",
+      "to": "SVC-SET",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "SVC-AUT",
+      "to": "SVC-CUS",
+      "type": "DEPENDS_ON"
+    }
+  ],
+  "service_databases": [
+    {
+      "from": "SVC-CUS",
+      "to": "DB-CUSTOMER",
+      "type": "USES"
+    },
+    {
+      "from": "SVC-FRD",
+      "to": "DB-FRAUD",
+      "type": "USES"
+    },
+    {
+      "from": "SVC-SET",
+      "to": "DB-SETTLEMENT",
+      "type": "USES"
+    },
+    {
+      "from": "SVC-REP",
+      "to": "DB-SETTLEMENT",
+      "type": "USES"
+    },
+    {
+      "from": "SVC-INV",
+      "to": "DB-CUSTOMER",
+      "type": "USES"
+    },
+    {
+      "from": "SVC-AUD",
+      "to": "DB-SETTLEMENT",
+      "type": "USES"
+    }
+  ],
+  "service_produces": [
+    {
+      "from": "SVC-PAY",
+      "to": "TOPIC-PAYMENT-EVENTS",
+      "type": "PRODUCES"
+    },
+    {
+      "from": "SVC-ORD",
+      "to": "TOPIC-ORDER-EVENTS",
+      "type": "PRODUCES"
+    },
+    {
+      "from": "SVC-CUS",
+      "to": "TOPIC-CUSTOMER-EVENTS",
+      "type": "PRODUCES"
+    },
+    {
+      "from": "SVC-FRD",
+      "to": "TOPIC-FRAUD-DECISIONS",
+      "type": "PRODUCES"
+    },
+    {
+      "from": "SVC-SET",
+      "to": "TOPIC-SETTLEMENT-EVENTS",
+      "type": "PRODUCES"
+    },
+    {
+      "from": "SVC-INV",
+      "to": "TOPIC-INVENTORY-EVENTS",
+      "type": "PRODUCES"
+    }
+  ],
+  "service_consumes": [
+    {
+      "from": "SVC-FRD",
+      "to": "TOPIC-CUSTOMER-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-NOT",
+      "to": "TOPIC-PAYMENT-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-NOT",
+      "to": "TOPIC-ORDER-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-SET",
+      "to": "TOPIC-PAYMENT-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-REP",
+      "to": "TOPIC-SETTLEMENT-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-INV",
+      "to": "TOPIC-ORDER-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-AUD",
+      "to": "TOPIC-PAYMENT-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-AUD",
+      "to": "TOPIC-ORDER-EVENTS",
+      "type": "CONSUMES"
+    },
+    {
+      "from": "SVC-AUD",
+      "to": "TOPIC-SETTLEMENT-EVENTS",
+      "type": "CONSUMES"
+    }
+  ],
+  "service_owners": [
+    {
+      "from": "SVC-PAY",
+      "to": "TEAM-PAY",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-ORD",
+      "to": "TEAM-COM",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-CUS",
+      "to": "TEAM-CUS",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-FRD",
+      "to": "TEAM-RSK",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-NOT",
+      "to": "TEAM-COM",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-SET",
+      "to": "TEAM-PAY",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-REP",
+      "to": "TEAM-DAT",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-AUT",
+      "to": "TEAM-CUS",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-INV",
+      "to": "TEAM-COM",
+      "type": "OWNED_BY"
+    },
+    {
+      "from": "SVC-AUD",
+      "to": "TEAM-DAT",
+      "type": "OWNED_BY"
+    }
+  ],
+  "deployment_targets": [
+    {
+      "from": "DEP-001",
+      "to": "SVC-CUS",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-002",
+      "to": "SVC-PAY",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-003",
+      "to": "SVC-FRD",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-004",
+      "to": "SVC-ORD",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-005",
+      "to": "SVC-NOT",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-006",
+      "to": "SVC-SET",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-007",
+      "to": "SVC-REP",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-008",
+      "to": "SVC-INV",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-009",
+      "to": "SVC-AUT",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-010",
+      "to": "SVC-AUD",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-011",
+      "to": "SVC-CUS",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-012",
+      "to": "SVC-PAY",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-013",
+      "to": "SVC-FRD",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-014",
+      "to": "SVC-ORD",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-015",
+      "to": "SVC-SET",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-016",
+      "to": "SVC-NOT",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-017",
+      "to": "SVC-INV",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-018",
+      "to": "SVC-REP",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-019",
+      "to": "SVC-AUT",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-020",
+      "to": "SVC-AUD",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-021",
+      "to": "SVC-CUS",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-022",
+      "to": "SVC-PAY",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-023",
+      "to": "SVC-SET",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-024",
+      "to": "SVC-FRD",
+      "type": "DEPLOYED_TO"
+    },
+    {
+      "from": "DEP-025",
+      "to": "SVC-ORD",
+      "type": "DEPLOYED_TO"
+    }
+  ],
+  "incident_affected": [
+    {
+      "from": "INC-101",
+      "to": "SVC-CUS",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-102",
+      "to": "SVC-PAY",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-103",
+      "to": "SVC-NOT",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-104",
+      "to": "SVC-FRD",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-105",
+      "to": "SVC-ORD",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-105",
+      "to": "SVC-INV",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-106",
+      "to": "SVC-SET",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-107",
+      "to": "SVC-REP",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-108",
+      "to": "SVC-INV",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-109",
+      "to": "SVC-AUT",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-109",
+      "to": "SVC-CUS",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-110",
+      "to": "SVC-AUD",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-111",
+      "to": "SVC-CUS",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-112",
+      "to": "SVC-PAY",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-113",
+      "to": "SVC-FRD",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-114",
+      "to": "SVC-ORD",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-114",
+      "to": "SVC-INV",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-115",
+      "to": "SVC-SET",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-116",
+      "to": "SVC-NOT",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-117",
+      "to": "SVC-INV",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-118",
+      "to": "SVC-REP",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-119",
+      "to": "SVC-AUT",
+      "type": "AFFECTED"
+    },
+    {
+      "from": "INC-120",
+      "to": "SVC-AUD",
+      "type": "AFFECTED"
+    }
+  ],
+  "incident_errors": [
+    {
+      "from": "INC-101",
+      "to": "ERR-POOL",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-102",
+      "to": "ERR-TIMEOUT",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-103",
+      "to": "ERR-KAFKA-LAG",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-104",
+      "to": "ERR-DEADLOCK",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-105",
+      "to": "ERR-DEPENDENCY",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-106",
+      "to": "ERR-DB-LATENCY",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-107",
+      "to": "ERR-CONSUMER-LAG",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-108",
+      "to": "ERR-DB-LATENCY",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-109",
+      "to": "ERR-TIMEOUT",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-110",
+      "to": "ERR-KAFKA-LAG",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-111",
+      "to": "ERR-DB-LATENCY",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-112",
+      "to": "ERR-RETRY-STORM",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-113",
+      "to": "ERR-CACHE",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-114",
+      "to": "ERR-SCHEMA",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-115",
+      "to": "ERR-RETRY-STORM",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-116",
+      "to": "ERR-DUPLICATE",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-117",
+      "to": "ERR-TIMEOUT",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-118",
+      "to": "ERR-DB-LATENCY",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-119",
+      "to": "ERR-AUTH",
+      "type": "OBSERVED"
+    },
+    {
+      "from": "INC-120",
+      "to": "ERR-DB-LATENCY",
+      "type": "OBSERVED"
+    }
+  ],
+  "incident_deployments": [
+    {
+      "from": "INC-101",
+      "to": "DEP-001",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-102",
+      "to": "DEP-002",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-103",
+      "to": "DEP-005",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-104",
+      "to": "DEP-003",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-105",
+      "to": "DEP-004",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-106",
+      "to": "DEP-006",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-107",
+      "to": "DEP-007",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-108",
+      "to": "DEP-008",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-109",
+      "to": "DEP-009",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-110",
+      "to": "DEP-010",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-111",
+      "to": "DEP-011",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-112",
+      "to": "DEP-012",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-113",
+      "to": "DEP-013",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-114",
+      "to": "DEP-014",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-115",
+      "to": "DEP-015",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-116",
+      "to": "DEP-016",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-117",
+      "to": "DEP-017",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-118",
+      "to": "DEP-018",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-119",
+      "to": "DEP-019",
+      "type": "ASSOCIATED_WITH"
+    },
+    {
+      "from": "INC-120",
+      "to": "DEP-020",
+      "type": "ASSOCIATED_WITH"
+    }
+  ],
+  "error_runbooks": [
+    {
+      "from": "ERR-POOL",
+      "to": "database_connection_pool.md",
+      "type": "HAS_RUNBOOK"
+    },
+    {
+      "from": "ERR-KAFKA-LAG",
+      "to": "kafka_consumer_lag.md",
+      "type": "HAS_RUNBOOK"
+    },
+    {
+      "from": "ERR-TIMEOUT",
+      "to": "payment_timeout.md",
+      "type": "HAS_RUNBOOK"
+    },
+    {
+      "from": "ERR-DEADLOCK",
+      "to": "database_deadlock.md",
+      "type": "HAS_RUNBOOK"
+    },
+    {
+      "from": "ERR-DB-LATENCY",
+      "to": "database_latency.md",
+      "type": "HAS_RUNBOOK"
+    },
+    {
+      "from": "ERR-SCHEMA",
+      "to": "event_schema_compatibility.md",
+      "type": "HAS_RUNBOOK"
+    },
+    {
+      "from": "ERR-RETRY-STORM",
+      "to": "retry_storm.md",
+      "type": "HAS_RUNBOOK"
+    }
+  ]
+}

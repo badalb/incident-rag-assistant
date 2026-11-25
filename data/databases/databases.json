@@ -1,0 +1,26 @@
+{
+  "source_id": "CATALOG-DATABASES-001",
+  "databases": [
+    {
+      "id": "DB-CUSTOMER",
+      "name": "Customer Database",
+      "database_type": "PostgreSQL",
+      "owner_team_id": "TEAM-CUS",
+      "description": "Stores customer profiles and inventory reference data for this synthetic environment."
+    },
+    {
+      "id": "DB-FRAUD",
+      "name": "Fraud Database",
+      "database_type": "PostgreSQL",
+      "owner_team_id": "TEAM-RSK",
+      "description": "Stores fraud rules, risk decisions and review metadata."
+    },
+    {
+      "id": "DB-SETTLEMENT",
+      "name": "Settlement Database",
+      "database_type": "PostgreSQL",
+      "owner_team_id": "TEAM-DAT",
+      "description": "Stores settlement batches, reporting data and audit records."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "dataset_name": "PayFlow Technologies Synthetic Incident Dataset",
+  "dataset_version": "1.0",
+  "generated_for": "Incident Root Cause Analysis Assistant – Multi-hop GraphRAG capstone",
+  "synthetic": true,
+  "counts": {
+    "services": 10,
+    "databases": 3,
+    "kafka_topics": 6,
+    "teams": 5,
+    "incidents": 20,
+    "deployments": 25,
+    "errors": 12,
+    "runbooks": 8,
+    "architecture_documents": 3
+  },
+  "relationship_types": [
+    "DEPENDS_ON",
+    "USES",
+    "PRODUCES",
+    "CONSUMES",
+    "OWNED_BY",
+    "AFFECTED",
+    "OBSERVED",
+    "ASSOCIATED_WITH",
+    "DEPLOYED_TO",
+    "HAS_RUNBOOK",
+    "DESCRIBES",
+    "MENTIONS"
+  ],
+  "notes": [
+    "All data is synthetic.",
+    "Incident-to-deployment associations are investigative correlations, not proven causation.",
+    "Some services share databases or event topics to support multi-hop impact analysis.",
+    "Use source_document and source identifiers for evidence provenance."
+  ]
+}

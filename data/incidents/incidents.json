@@ -1,0 +1,408 @@
+{
+  "source_id": "INCIDENT-EXPORT-001",
+  "incidents": [
+    {
+      "id": "INC-101",
+      "title": "Customer database connection pool exhaustion",
+      "timestamp": "2026-11-18T10:30:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-CUS"
+      ],
+      "observed_error_ids": [
+        "ERR-POOL"
+      ],
+      "associated_deployment_ids": [
+        "DEP-001"
+      ],
+      "description": "Customer Service experienced intermittent database connection failures shortly after deployment 2.4.1. Pool utilization reached its configured maximum and request latency increased.",
+      "resolution_summary": "Mitigated by rolling back the connection pool configuration and restarting Customer Service.",
+      "investigation_notes": "Customer Database connections rose sharply after the deployment. The timing is suggestive but does not alone prove causation.",
+      "source_document": "INC-101.md"
+    },
+    {
+      "id": "INC-102",
+      "title": "Payment API elevated timeout rate",
+      "timestamp": "2026-11-18T10:42:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-PAY"
+      ],
+      "observed_error_ids": [
+        "ERR-TIMEOUT"
+      ],
+      "associated_deployment_ids": [
+        "DEP-002"
+      ],
+      "description": "Payment API timeout rate increased while calls to Customer Service were slow. Payment authorization latency exceeded the service objective.",
+      "resolution_summary": "Traffic recovered after Customer Service stabilized.",
+      "investigation_notes": "Correlates in time with INC-101; likely downstream dependency impact.",
+      "source_document": "INC-102.md"
+    },
+    {
+      "id": "INC-103",
+      "title": "Notification consumer lag",
+      "timestamp": "2026-11-17T18:15:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-NOT"
+      ],
+      "observed_error_ids": [
+        "ERR-KAFKA-LAG"
+      ],
+      "associated_deployment_ids": [
+        "DEP-005"
+      ],
+      "description": "Notification Service fell behind on payment-events. Consumer lag increased during a high-volume notification period.",
+      "resolution_summary": "Consumer concurrency was increased and backlog drained.",
+      "investigation_notes": "Investigate consumer capacity and event burst size.",
+      "source_document": "INC-103.md"
+    },
+    {
+      "id": "INC-104",
+      "title": "Fraud database deadlocks",
+      "timestamp": "2026-11-17T09:20:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-FRD"
+      ],
+      "observed_error_ids": [
+        "ERR-DEADLOCK"
+      ],
+      "associated_deployment_ids": [
+        "DEP-003"
+      ],
+      "description": "Fraud Service experienced transaction deadlocks while updating risk review records.",
+      "resolution_summary": "A database index and transaction ordering change reduced contention.",
+      "investigation_notes": "No evidence linking this incident to payment database pool exhaustion.",
+      "source_document": "INC-104.md"
+    },
+    {
+      "id": "INC-105",
+      "title": "Order creation failures during inventory reservation",
+      "timestamp": "2026-11-16T14:05:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-ORD",
+        "SVC-INV"
+      ],
+      "observed_error_ids": [
+        "ERR-DEPENDENCY"
+      ],
+      "associated_deployment_ids": [
+        "DEP-004"
+      ],
+      "description": "Order creation failed when Inventory Service reservation calls exceeded their timeout.",
+      "resolution_summary": "Inventory query latency was reduced and retry limits were adjusted.",
+      "investigation_notes": "The failure propagated from an inventory dependency to Order Service.",
+      "source_document": "INC-105.md"
+    },
+    {
+      "id": "INC-106",
+      "title": "Settlement batch processing delay",
+      "timestamp": "2026-11-16T11:30:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-SET"
+      ],
+      "observed_error_ids": [
+        "ERR-DB-LATENCY"
+      ],
+      "associated_deployment_ids": [
+        "DEP-006"
+      ],
+      "description": "Settlement batches took longer than usual due to slow database queries.",
+      "resolution_summary": "Query plan was corrected and batch processing recovered.",
+      "investigation_notes": "May affect Reporting Service freshness through settlement data.",
+      "source_document": "INC-106.md"
+    },
+    {
+      "id": "INC-107",
+      "title": "Reporting data freshness degradation",
+      "timestamp": "2026-11-15T16:20:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-REP"
+      ],
+      "observed_error_ids": [
+        "ERR-CONSUMER-LAG"
+      ],
+      "associated_deployment_ids": [
+        "DEP-007"
+      ],
+      "description": "Reporting data was delayed because settlement events were arriving late.",
+      "resolution_summary": "Reporting caught up after upstream settlement processing recovered.",
+      "investigation_notes": "Potentially related to settlement pipeline, not necessarily a Reporting defect.",
+      "source_document": "INC-107.md"
+    },
+    {
+      "id": "INC-108",
+      "title": "Inventory database query latency",
+      "timestamp": "2026-11-15T12:10:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-INV"
+      ],
+      "observed_error_ids": [
+        "ERR-DB-LATENCY"
+      ],
+      "associated_deployment_ids": [
+        "DEP-008"
+      ],
+      "description": "Inventory reservation queries showed elevated latency after a traffic increase.",
+      "resolution_summary": "Query tuning and connection monitoring reduced latency.",
+      "investigation_notes": "Inventory latency can affect Order Service because it depends on Inventory Service.",
+      "source_document": "INC-108.md"
+    },
+    {
+      "id": "INC-109",
+      "title": "Authentication profile lookup latency",
+      "timestamp": "2026-11-14T15:10:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-AUT",
+        "SVC-CUS"
+      ],
+      "observed_error_ids": [
+        "ERR-TIMEOUT"
+      ],
+      "associated_deployment_ids": [
+        "DEP-009"
+      ],
+      "description": "Authentication requests slowed when profile lookups to Customer Service became delayed.",
+      "resolution_summary": "Customer lookup caching reduced the impact.",
+      "investigation_notes": "Authentication Service depends on Customer Service.",
+      "source_document": "INC-109.md"
+    },
+    {
+      "id": "INC-110",
+      "title": "Audit event backlog",
+      "timestamp": "2026-11-14T10:45:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-AUD"
+      ],
+      "observed_error_ids": [
+        "ERR-KAFKA-LAG"
+      ],
+      "associated_deployment_ids": [
+        "DEP-010"
+      ],
+      "description": "Audit Service lagged while consuming payment and order events.",
+      "resolution_summary": "Consumer throughput was increased.",
+      "investigation_notes": "Shared event topics can affect more than one consumer.",
+      "source_document": "INC-110.md"
+    },
+    {
+      "id": "INC-111",
+      "title": "Customer profile read latency",
+      "timestamp": "2026-11-10T11:30:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-CUS"
+      ],
+      "observed_error_ids": [
+        "ERR-DB-LATENCY"
+      ],
+      "associated_deployment_ids": [
+        "DEP-011"
+      ],
+      "description": "Customer profile reads slowed after a query pattern change.",
+      "resolution_summary": "A missing index was added.",
+      "investigation_notes": "Historical Customer Service database latency incident.",
+      "source_document": "INC-111.md"
+    },
+    {
+      "id": "INC-112",
+      "title": "Payment retry storm",
+      "timestamp": "2026-11-09T13:00:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-PAY"
+      ],
+      "observed_error_ids": [
+        "ERR-RETRY-STORM"
+      ],
+      "associated_deployment_ids": [
+        "DEP-012"
+      ],
+      "description": "Payment retries amplified load during a downstream timeout event.",
+      "resolution_summary": "Retry backoff and jitter were adjusted.",
+      "investigation_notes": "Retries can amplify an underlying dependency issue.",
+      "source_document": "INC-112.md"
+    },
+    {
+      "id": "INC-113",
+      "title": "Fraud decision cache inconsistency",
+      "timestamp": "2026-11-08T10:00:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-FRD"
+      ],
+      "observed_error_ids": [
+        "ERR-CACHE"
+      ],
+      "associated_deployment_ids": [
+        "DEP-013"
+      ],
+      "description": "Fraud decisions briefly used stale cached rule data.",
+      "resolution_summary": "Cache invalidation was corrected.",
+      "investigation_notes": "Risk decision inconsistency; separate from Customer Database incidents.",
+      "source_document": "INC-113.md"
+    },
+    {
+      "id": "INC-114",
+      "title": "Order event schema incompatibility",
+      "timestamp": "2026-11-07T14:10:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-ORD",
+        "SVC-INV"
+      ],
+      "observed_error_ids": [
+        "ERR-SCHEMA"
+      ],
+      "associated_deployment_ids": [
+        "DEP-014"
+      ],
+      "description": "Inventory Service rejected a subset of order events after a schema change.",
+      "resolution_summary": "Producer and consumer schema versions were aligned.",
+      "investigation_notes": "Demonstrates event-contract failure across service boundaries.",
+      "source_document": "INC-114.md"
+    },
+    {
+      "id": "INC-115",
+      "title": "Settlement retry queue buildup",
+      "timestamp": "2026-11-06T12:30:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-SET"
+      ],
+      "observed_error_ids": [
+        "ERR-RETRY-STORM"
+      ],
+      "associated_deployment_ids": [
+        "DEP-015"
+      ],
+      "description": "Settlement retry queue grew while database operations were slow.",
+      "resolution_summary": "Retry schedule was tuned.",
+      "investigation_notes": "Potentially related to settlement database contention.",
+      "source_document": "INC-115.md"
+    },
+    {
+      "id": "INC-116",
+      "title": "Notification duplicate messages",
+      "timestamp": "2026-11-05T11:20:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-NOT"
+      ],
+      "observed_error_ids": [
+        "ERR-DUPLICATE"
+      ],
+      "associated_deployment_ids": [
+        "DEP-016"
+      ],
+      "description": "Some notifications were delivered more than once during consumer rebalancing.",
+      "resolution_summary": "Idempotency checks were strengthened.",
+      "investigation_notes": "Operational issue in event consumption.",
+      "source_document": "INC-116.md"
+    },
+    {
+      "id": "INC-117",
+      "title": "Inventory reservation timeout",
+      "timestamp": "2026-11-04T16:00:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-INV"
+      ],
+      "observed_error_ids": [
+        "ERR-TIMEOUT"
+      ],
+      "associated_deployment_ids": [
+        "DEP-017"
+      ],
+      "description": "Inventory reservation requests timed out during a traffic peak.",
+      "resolution_summary": "Query and connection usage were tuned.",
+      "investigation_notes": "Can propagate to Order Service.",
+      "source_document": "INC-117.md"
+    },
+    {
+      "id": "INC-118",
+      "title": "Reporting query saturation",
+      "timestamp": "2026-11-03T10:15:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-REP"
+      ],
+      "observed_error_ids": [
+        "ERR-DB-LATENCY"
+      ],
+      "associated_deployment_ids": [
+        "DEP-018"
+      ],
+      "description": "Large reporting queries consumed database resources and delayed report generation.",
+      "resolution_summary": "Query limits and scheduling were adjusted.",
+      "investigation_notes": "Shares Settlement Database with other data workloads.",
+      "source_document": "INC-118.md"
+    },
+    {
+      "id": "INC-119",
+      "title": "Authentication token validation errors",
+      "timestamp": "2026-11-02T13:25:00Z",
+      "severity": "SEV-2",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-AUT"
+      ],
+      "observed_error_ids": [
+        "ERR-AUTH"
+      ],
+      "associated_deployment_ids": [
+        "DEP-019"
+      ],
+      "description": "A token validation change caused intermittent authentication failures.",
+      "resolution_summary": "Configuration was corrected.",
+      "investigation_notes": "Authentication-specific failure.",
+      "source_document": "INC-119.md"
+    },
+    {
+      "id": "INC-120",
+      "title": "Audit database write latency",
+      "timestamp": "2026-11-01T11:00:00Z",
+      "severity": "SEV-3",
+      "status": "RESOLVED",
+      "affected_service_ids": [
+        "SVC-AUD"
+      ],
+      "observed_error_ids": [
+        "ERR-DB-LATENCY"
+      ],
+      "associated_deployment_ids": [
+        "DEP-020"
+      ],
+      "description": "Audit writes slowed during a high-volume event period.",
+      "resolution_summary": "Write batching was tuned.",
+      "investigation_notes": "Audit workload shares Settlement Database with reporting and settlement workloads.",
+      "source_document": "INC-120.md"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+
+0. venv installation
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+1. Install Pydantic
+
+pip install "pydantic>=2,<3" pydantic-settings
+
+2. Run neo4j docker container
+
+docker run -d --name neo4j \
+  -p 7474:7474 -p 7687:7687 \
+  -e NEO4J_AUTH=neo4j/your_password_here \
+  -v $HOME/neo4j/data:/data \
+  neo4j:5.26
+
+userid: neo4j
+password: your_password_here
+
+3. pip install "neo4j>=5.26,<6"
+
+4. pip install openai
+
+5. Create Vector Index 
+
+CREATE VECTOR INDEX document_chunk_embedding IF NOT EXISTS
+FOR (c:DocumentChunk)
+ON (c.embedding)
+OPTIONS {
+    indexConfig: {
+        `vector.dimensions`: 1536,
+        `vector.similarity_function`: 'cosine'
+    }
+};
+
+6. pip install fastapi "uvicorn[standard]" 
+
+# start fastAPI
+7. uvicorn app.main:app --reload
+
+8. http://127.0.0.1:8000/docs
+
+9. http://localhost:8000/health
+
+10. curl -X POST "http://127.0.0.1:8000/api/investigations" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "What caused the Customer Database connection pool exhaustion?",
+    "top_k": 5,
+    "max_hops": 3
+  }'
+
+11. pip install streamlit requests
+
+
+# start streamlit
+12. streamlit run frontend/streamlit_app.py 

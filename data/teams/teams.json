@@ -1,0 +1,48 @@
+{
+  "source_id": "ORG-TEAMS-001",
+  "teams": [
+    {
+      "id": "TEAM-PAY",
+      "name": "Payments Team",
+      "responsibilities": [
+        "Payment Service",
+        "Settlement Service"
+      ]
+    },
+    {
+      "id": "TEAM-CUS",
+      "name": "Customer Platform Team",
+      "responsibilities": [
+        "Customer Service",
+        "Authentication Service",
+        "Customer Database"
+      ]
+    },
+    {
+      "id": "TEAM-RSK",
+      "name": "Risk Engineering Team",
+      "responsibilities": [
+        "Fraud Service",
+        "Fraud Database"
+      ]
+    },
+    {
+      "id": "TEAM-COM",
+      "name": "Commerce Team",
+      "responsibilities": [
+        "Order Service",
+        "Inventory Service",
+        "Notification Service"
+      ]
+    },
+    {
+      "id": "TEAM-DAT",
+      "name": "Data Platform Team",
+      "responsibilities": [
+        "Reporting Service",
+        "Audit Service",
+        "Settlement Database"
+      ]
+    }
+  ]
+}

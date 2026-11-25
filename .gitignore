@@ -1,0 +1,115 @@
+# ==================================================
+# Python virtual environments
+# ==================================================
+.venv/
+venv/
+env/
+ENV/
+
+# ==================================================
+# Python compiled files and caches
+# ==================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ==================================================
+# Environment variables and secrets
+# ==================================================
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+secrets/
+.streamlit/secrets.toml
+
+# ==================================================
+# Python packaging and build artifacts
+# ==================================================
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# ==================================================
+# Testing and code coverage
+# ==================================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+
+# ==================================================
+# Static analysis and linting
+# ==================================================
+.mypy_cache/
+.ruff_cache/
+.pyright/
+.pytype/
+
+# ==================================================
+# IDE and editor configuration
+# ==================================================
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+.project
+.settings/
+
+# ==================================================
+# Operating system files
+# ==================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# ==================================================
+# Application logs and temporary files
+# ==================================================
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+*.bak
+*.pid
+
+# ==================================================
+# Neo4j persistent storage
+# ==================================================
+/neo4j-data/
+/neo4j-logs/
+/neo4j-import/
+/neo4j-plugins/
+/neo4j-backup/
+*.dump
+
+# ==================================================
+# Docker local configuration
+# ==================================================
+docker-compose.override.yml
+compose.override.yml
+
+# ==================================================
+# Generated archives
+# ==================================================
+*.zip
+*.tar
+*.tar.gz
+
+# ==================================================
+# Jupyter notebooks
+# ==================================================
+.ipynb_checkpoints/

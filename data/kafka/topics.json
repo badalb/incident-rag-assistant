@@ -1,0 +1,41 @@
+{
+  "source_id": "CATALOG-KAFKA-001",
+  "topics": [
+    {
+      "id": "TOPIC-PAYMENT-EVENTS",
+      "name": "payment-events",
+      "description": "Payment authorization and capture events.",
+      "owner_team_id": "TEAM-PAY"
+    },
+    {
+      "id": "TOPIC-ORDER-EVENTS",
+      "name": "order-events",
+      "description": "Order creation and inventory reservation events.",
+      "owner_team_id": "TEAM-COM"
+    },
+    {
+      "id": "TOPIC-CUSTOMER-EVENTS",
+      "name": "customer-events",
+      "description": "Customer profile change events.",
+      "owner_team_id": "TEAM-CUS"
+    },
+    {
+      "id": "TOPIC-SETTLEMENT-EVENTS",
+      "name": "settlement-events",
+      "description": "Settlement batch lifecycle events.",
+      "owner_team_id": "TEAM-DAT"
+    },
+    {
+      "id": "TOPIC-FRAUD-DECISIONS",
+      "name": "fraud-decisions",
+      "description": "Fraud evaluation outcomes.",
+      "owner_team_id": "TEAM-RSK"
+    },
+    {
+      "id": "TOPIC-INVENTORY-EVENTS",
+      "name": "inventory-events",
+      "description": "Inventory reservation and release events.",
+      "owner_team_id": "TEAM-COM"
+    }
+  ]
+}
